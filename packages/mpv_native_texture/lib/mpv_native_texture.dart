@@ -4,12 +4,6 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-// Export platform-specific classes for backward compatibility
-export 'mpv_win_native_texture.dart'
-    show MpvWinNativeTextureController, MpvWinNativeTextureView;
-export 'mpv_mac_native_texture.dart'
-    show MpvMacNativeTextureController, MpvMacNativeTextureView;
-
 /// A unified mpv instance rendered into a Flutter external texture.
 /// Automatically selects the correct implementation based on the platform.
 class MpvNativeTextureController {

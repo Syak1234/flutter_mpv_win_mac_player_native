@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPV Native Texture - Setup Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4F46E5;
+            --primary-dark: #4338CA;
+            --secondary: #06B6D4;
+            --accent: #F59E0B;
+            --bg-dark: #0F172A;
+            --bg-medium: #1E293B;
+            --bg-light: #334155;
+            --text-primary: #F1F5F9;
+            --text-secondary: #CBD5E1;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            -webkit-text-fill-color: var(--text-secondary);
+        }
+
+        .platform-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 0.5rem 1.25rem;
+            background: rgba(79, 70, 229, 0.1);
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 60px rgba(79, 70, 229, 0.2);
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--accent);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 0.75rem;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+        }
+
+        .code-block {
+            background: rgba(15, 23, 42, 0.8);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        .code-block code {
+            color: #A5F3FC;
+        }
+
+        .inline-code {
+            background: rgba(79, 70, 229, 0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+            color: var(--secondary);
+        }
+
+        .alert {
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .alert-info {
+            border-color: var(--secondary);
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        .alert-warning {
+            border-color: var(--warning);
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .alert-success {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .alert-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .platform-section {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), rgba(6, 182, 212, 0.05));
+            border: 2px solid rgba(79, 70, 229, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .download-button {
+            display: inline-block;
+            padding: 0.875rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+
+        .download-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.6);
+        }
+
+        .toc {
+            background: rgba(30, 41, 59, 0.4);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .toc h3 {
+            color: var(--text-primary);
+            margin-top: 0;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 0.5rem 0;
+        }
+
+        .toc a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .toc a:hover {
+            color: var(--primary);
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin: 0.5rem 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: rgba(79, 70, 229, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(79, 70, 229, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .feature-card h4 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            background: var(--primary);
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.75rem;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .copy-button:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎬 MPV Native Texture</h1>
+            <p class="subtitle">Complete Setup Guide for Windows & macOS</p>
+            <div class="platform-badges">
+                <span class="badge">🪟 Windows 10/11</span>
+                <span class="badge">🍎 macOS 12+</span>
+                <span class="badge">⚡ Flutter 3.35+</span>
+            </div>
+        </header>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h3>📑 Table of Contents</h3>
+            <ul>
+                <li><a href="#overview">Project Overview</a></li>
+                <li><a href="#prerequisites">Prerequisites</a></li>
+                <li><a href="#windows-setup">Windows Setup</a></li>
+                <li><a href="#macos-setup">macOS Setup</a></li>
+                <li><a href="#running">Running the Demo</a></li>
+                <li><a href="#usage">API Usage</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+            </ul>
+        </div>
+
+        <!-- Overview -->
+        <div class="card" id="overview">
+            <h2><span class="icon">📖</span>Project Overview</h2>
+            <p>
+                This is a Flutter demonstration application that integrates <strong>libmpv</strong> (the powerful media player library) 
+                with Flutter's native texture rendering system. It provides a unified, cross-platform API that works seamlessly on both 
+                Windows and macOS.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>🎯 Unified API</h4>
+                    <p>Single codebase works on Windows and macOS</p>
+                </div>
+                <div class="feature-card">
+                    <h4>⚡ Hardware Accelerated</h4>
+                    <p>GPU-powered video decoding and rendering</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎮 Rich Controls</h4>
+                    <p>Play, pause, seek, volume, speed control</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🖥️ Fullscreen Mode</h4>
+                    <p>Immersive viewing experience</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prerequisites -->
+        <div class="card" id="prerequisites">
+            <h2><span class="icon">✅</span>Prerequisites</h2>
+            
+            <h3>Development Environment</h3>
+            <ul>
+                <li><strong>Flutter SDK:</strong> Version 3.35.0 or later</li>
+                <li><strong>Dart SDK:</strong> Version 3.3.0 or later</li>
+            </ul>
+
+            <h3>Platform-Specific Requirements</h3>
+            
+            <div class="alert alert-info">
+                <div class="alert-title">ℹ️ Windows Requirements</div>
+                <ul>
+                    <li>Windows 10 or later</li>
+                    <li>Visual Studio 2019 or later with C++ Desktop Development tools</li>
+                    <li><strong>mpv-2.dll</strong> library (downloaded separately)</li>
+                </ul>
+            </div>
+
+            <div class="alert alert-info">
+                <div class="alert-title">ℹ️ macOS Requirements</div>
+                <ul>
+                    <li>macOS 12 (Monterey) or later</li>
+                    <li>Xcode (latest version recommended)</li>
+                    <li><strong>libmpv.2.dylib</strong> library (via Homebrew or manual download)</li>
+                </ul>
+            </div>
+
+            <h3>Verify Flutter Installation</h3>
+            <div class="code-block">
+                <code>flutter doctor -v</code>
+            </div>
+            <p>Ensure all checks pass for your target platform (Windows or macOS).</p>
+        </div>
+
+        <!-- Windows Setup -->
+        <div class="card" id="windows-setup">
+            <h2><span class="icon">🪟</span>Windows Setup</h2>
+            
+            <div class="platform-section">
+                <h3><span class="step-number">1</span>Download MPV Library</h3>
+                <p>You need to obtain <span class="inline-code">mpv-2.dll</span> from one of these sources:</p>
+                
+                <a href="https://mpv.io/installation/" class="download-button" target="_blank">📥 Official MPV Website</a>
+                <a href="https://sourceforge.net/projects/mpv-player-windows/files/" class="download-button" target="_blank">📥 Shinchiro's Builds</a>
+                
+                <div class="alert alert-warning">
+                    <div class="alert-title">⚠️ Important</div>
+                    Download the <strong>x64 (64-bit)</strong> version. The DLL must match your application architecture.
+                </div>
+            </div>
+
+            <div class="platform-section">
+                <h3><span class="step-number">2</span>Place the DLL</h3>
+                <p>Copy <span class="inline-code">mpv-2.dll</span> to the following location in your project:</p>
+                
+                <div class="code-block">
+                    <code>packages/mpv_native_texture/windows/third_party/mpv/bin/mpv-2.dll</code>
+                </div>
+
+                <div class="alert alert-info">
+                    <div class="alert-title">💡 Automatic Deployment</div>
+                    The plugin's CMake configuration will automatically copy <span class="inline-code">mpv-2.dll</span> 
+                    to your build output folder during compilation.
+                </div>
+            </div>
+
+            <div class="platform-section">
+                <h3><span class="step-number">3</span>Install Dependencies</h3>
+                <div class="code-block">
+                    <code>flutter pub get</code>
+                </div>
+            </div>
+
+            <div class="platform-section">
+                <h3><span class="step-number">4</span>Build the Application</h3>
+                
+                <p><strong>For Debug Mode:</strong></p>
+                <div class="code-block">
+                    <code>flutter build windows --debug</code>
+                </div>
+
+                <p><strong>For Release Mode:</strong></p>
+                <div class="code-block">
+                    <code>flutter build windows --release</code>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">✅ Build Output Location</div>
+                    <p>After building, <span class="inline-code">mpv-2.dll</span> will be located at:</p>
+                    <ul>
+                        <li><strong>Debug:</strong> <span class="inline-code">build/windows/runner/Debug/mpv-2.dll</span></li>
+                        <li><strong>Release:</strong> <span class="inline-code">build/windows/runner/Release/mpv-2.dll</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="platform-section">
+                <h3><span class="step-number">5</span>Run the Demo</h3>
+                <div class="code-block">
+                    <code>flutter run -d windows</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- macOS Setup -->
+        <div class="card" id="macos-setup">
+            <h2><span class="icon">🍎</span>macOS Setup</h2>
+            
+            <div class="platform-section">
+                <h3><span class="step-number">1</span>Install MPV Library</h3>
+                <p><strong>Option A: Install via Homebrew (Recommended)</strong></p>
+                <div class="code-block">
+                    <code>brew install mpv</code>
+                </div>
+
+                <p><strong>Option B: Manual Download</strong></p>
+                <ul>
+                    <li>Download from <a href="https://mpv.io" target="_blank" style="color: var(--secondary)">mpv.io</a></li>
+                    <li>Extract <span class="inline-code">libmpv.2.dylib</span> from the package</li>
+                </ul>
+            </div>
+
+            <div class="platform-section">
+                <h3><span class="step-number">2</span>Place the Library</h3>
+                <p>If using manual download, copy <span class="inline-code">libmpv.2.dylib</span> to:</p>
+                
+                <div class="code-block">
+                    <code>packages/mpv_native_texture/macos/Libs/libmpv.2.dylib</code>
+                </div>
+
+                <div class="alert alert-info">
+                    <div class="alert-title">💡 Tip</div>
+                    If you installed via Homebrew, the library is system-wide and will be found automatically.
+                </div>
+            </div>
+
+            <div class="platform-section">
+                <h3><span class="step-number">3</span>Install Dependencies</h3>
+                <div class="code-block">
+                    <code>flutter pub get</code>
+                </div>
+            </div>
+
+            <div class="platform-section">
+                <h3><span class="step-number">4</span>Build the Application</h3>
+                
+                <p><strong>For Debug Mode:</strong></p>
+                <div class="code-block">
+                    <code>flutter build macos --debug</code>
+                </div>
+
+                <p><strong>For Release Mode:</strong></p>
+                <div class="code-block">
+                    <code>flutter build macos --release</code>
+                </div>
+            </div>
+
+            <div class="platform-section">
+                <h3><span class="step-number">5</span>Run the Demo</h3>
+                <div class="code-block">
+                    <code>flutter run -d macos</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Running the Demo -->
+        <div class="card" id="running">
+            <h2><span class="icon">▶️</span>Running the Demo</h2>
+            
+            <h3>Quick Start Commands</h3>
+            
+            <div class="code-block">
+                <code># Clean previous builds (recommended)<br>flutter clean<br><br># Get dependencies<br>flutter pub get<br><br># Run on Windows<br>flutter run -d windows<br><br># Run on macOS<br>flutter run -d macos</code>
+            </div>
+
+            <h3>Using the Application</h3>
+            <ol>
+                <li><strong>Open a Local File:</strong> Click the "Open File" button and select a video file (MP4, MKV, MOV, WebM, AVI)</li>
+                <li><strong>Open a URL:</strong> Enter a video URL in the text field and click "Open URL"</li>
+                <li><strong>Playback Controls:</strong>
+                    <ul>
+                        <li>Play/Pause buttons</li>
+                        <li>Seek ±10 seconds</li>
+                        <li>Volume control (hover over video)</li>
+                        <li>Playback speed adjustment</li>
+                        <li>Fullscreen mode</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <div class="alert alert-success">
+                <div class="alert-title">🎥 Test Video</div>
+                The demo includes a pre-filled URL with a sample video (Big Buck Bunny) for quick testing.
+            </div>
+        </div>
+
+        <!-- API Usage -->
+        <div class="card" id="usage">
+            <h2><span class="icon">💻</span>API Usage</h2>
+            
+            <h3>Import the Package</h3>
+            <div class="code-block">
+                <code>import 'package:mpv_native_texture/mpv_native_texture.dart';</code>
+            </div>
+
+            <h3>Create a Controller</h3>
+            <div class="code-block">
+                <code>// Create controller with optional width and height<br>final controller = await MpvNativeTextureController.create(<br>  width: 1280,<br>  height: 720,<br>);</code>
+            </div>
+
+            <h3>Display Video</h3>
+            <div class="code-block">
+                <code>MpvNativeTextureView(controller: controller)</code>
+            </div>
+
+            <h3>Playback Control</h3>
+            <div class="code-block">
+                <code>// Open and play a file<br>await controller.open('path/to/video.mp4');<br>await controller.play();<br><br>// Pause playback<br>await controller.pause();<br><br>// Seek (relative)<br>await controller.seekRelative(10); // +10 seconds<br>await controller.seekRelative(-10); // -10 seconds<br><br>// Seek (absolute)<br>await controller.seekAbsolute(60.0); // 60 seconds from start<br><br>// Toggle mute<br>await controller.toggleMute();<br><br>// Set playback speed<br>await controller.setSpeed(1.5); // 1.5x speed<br><br>// Get position and duration<br>final position = await controller.getPosition();<br>final duration = await controller.getDuration();<br><br>// Dispose when done<br>controller.dispose();</code>
+            </div>
+        </div>
+
+        <!-- Troubleshooting -->
+        <div class="card" id="troubleshooting">
+            <h2><span class="icon">🔧</span>Troubleshooting</h2>
+            
+            <h3>Windows Issues</h3>
+            
+            <div class="alert alert-warning">
+                <div class="alert-title">❌ Error: "Failed to initialize mpv player"</div>
+                <p><strong>Cause:</strong> <span class="inline-code">mpv-2.dll</span> is missing or not in the correct location.</p>
+                <p><strong>Solutions:</strong></p>
+                <ul>
+                    <li>Verify <span class="inline-code">mpv-2.dll</span> exists in <span class="inline-code">packages/mpv_native_texture/windows/third_party/mpv/bin/</span></li>
+                    <li>Run <span class="inline-code">flutter clean</span> and rebuild</li>
+                    <li>Check that the DLL is the correct architecture (x64)</li>
+                    <li>Manually copy <span class="inline-code">mpv-2.dll</span> next to <span class="inline-code">Runner.exe</span> in your build folder</li>
+                </ul>
+            </div>
+
+            <div class="alert alert-warning">
+                <div class="alert-title">❌ Error: "The specified module could not be found"</div>
+                <p><strong>Cause:</strong> Missing dependencies for mpv-2.dll</p>
+                <p><strong>Solutions:</strong></p>
+                <ul>
+                    <li>Install Visual C++ Redistributables</li>
+                    <li>Ensure all DLL dependencies are present</li>
+                    <li>Use a tool like <a href="https://github.com/lucasg/Dependencies" target="_blank" style="color: var(--secondary)">Dependencies</a> to check missing DLLs</li>
+                </ul>
+            </div>
+
+            <h3>macOS Issues</h3>
+            
+            <div class="alert alert-warning">
+                <div class="alert-title">❌ Error: "Library not loaded: libmpv.2.dylib"</div>
+                <p><strong>Cause:</strong> libmpv library not found</p>
+                <p><strong>Solutions:</strong></p>
+                <ul>
+                    <li>Install via Homebrew: <span class="inline-code">brew install mpv</span></li>
+                    <li>Place <span class="inline-code">libmpv.2.dylib</span> in <span class="inline-code">packages/mpv_native_texture/macos/Libs/</span></li>
+                    <li>Verify the library architecture matches your Mac (Intel x86_64 or Apple Silicon arm64)</li>
+                </ul>
+            </div>
+
+            <h3>General Issues</h3>
+            
+            <div class="alert alert-info">
+                <div class="alert-title">🎬 Video not playing</div>
+                <ul>
+                    <li>Check if the video format is supported by mpv</li>
+                    <li>Verify the file path or URL is correct</li>
+                    <li>Check the console output for specific error messages</li>
+                    <li>Try a different video file</li>
+                </ul>
+            </div>
+
+            <div class="alert alert-info">
+                <div class="alert-title">🐌 Poor performance</div>
+                <ul>
+                    <li>Ensure hardware acceleration is enabled</li>
+                    <li>Try lowering the video resolution</li>
+                    <li>Check CPU/GPU usage in Task Manager or Activity Monitor</li>
+                    <li>Build in release mode for better performance</li>
+                </ul>
+            </div>
+
+            <h3>Getting Help</h3>
+            <p>If you're still experiencing issues:</p>
+            <ol>
+                <li>Check your Flutter and Dart SDK versions: <span class="inline-code">flutter --version</span></li>
+                <li>Look for error messages in the console output</li>
+                <li>Verify all prerequisites are met</li>
+                <li>Open an issue on GitHub with:
+                    <ul>
+                        <li>Your platform (Windows/macOS version)</li>
+                        <li>Flutter version</li>
+                        <li>Complete error messages</li>
+                        <li>Steps to reproduce</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; padding: 2rem 0; color: var(--text-secondary);">
+            <p>🎬 <strong>Happy Video Playing!</strong></p>
+            <p style="margin-top: 0.5rem;">Built with ❤️ using Flutter and libmpv</p>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
