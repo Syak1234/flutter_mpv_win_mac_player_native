@@ -1,0 +1,8 @@
+// Minimal resource script for the Flutter Windows runner.
+
+#pragma code_page(65001)
+
+#include "resource.h"
+#include "winres.h"
+
+IDI_APP_ICON ICON "resources\\app_icon.ico"

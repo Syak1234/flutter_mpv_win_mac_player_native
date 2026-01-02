@@ -1,0 +1,6 @@
+Copy mpv-2.dll here OR next to your built Runner.exe.
+
+Recommended runtime location:
+  <app>/build/windows/x64/runner/Release/mpv-2.dll
+
+This project auto-copies mpv-2.dll from this folder to the build output if present.

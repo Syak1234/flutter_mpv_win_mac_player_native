@@ -1,0 +1,27 @@
+name: mpv_native_texture
+description: Native libmpv-backed texture player for Flutter Windows (libmpv + mpv render API).
+version: 0.0.1
+homepage: https://example.com
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+  flutter: ">=3.35.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lints: ^5.0.0
+
+flutter:
+  plugin:
+    platforms:
+      windows:
+        pluginClass: MpvNativeTexturePluginCApi
+        fileName: mpv_native_texture_plugin_c_api.cpp
+      macos:
+        pluginClass: MpvNativeTexturePlugin
