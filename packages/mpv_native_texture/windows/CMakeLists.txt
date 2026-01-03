@@ -47,7 +47,7 @@ set_target_properties(${PLUGIN_NAME} PROPERTIES
 
 # Ensure headers are copied for consumers.
 set(mpv_native_texture_bundled_libraries
-  ""
+  "${CMAKE_CURRENT_SOURCE_DIR}/third_party/mpv/bin/mpv-2.dll"
   PARENT_SCOPE
 )
 
