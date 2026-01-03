@@ -86,7 +86,7 @@ MpvNativeTextureView(controller: controller)
 
 For comprehensive, step-by-step setup instructions with troubleshooting tips, see:
 
-**[📖 SETUP_GUIDE.html](./SETUP_GUIDE.html)** - Open this file in your browser for a beautiful, detailed guide!
+**[📖 SETUP_GUIDE.html](./SETUP_GUIDE.html)** - Download or open this local file in your browser for a beautiful, detailed guide!
 
 ## 🖥️ Platform Support
 
@@ -190,6 +190,7 @@ This project is provided as-is for demonstration purposes. Please refer to the [
 
 - [mpv](https://mpv.io) - The amazing media player
 - [Flutter](https://flutter.dev) - Google's UI toolkit
+- **Sayak Mishra** - Flutter Developer (Project Creator)
 - All contributors to the libmpv project
 
 ## 📞 Support
