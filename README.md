@@ -40,9 +40,14 @@ Due to licensing and size constraints, this repository does **not** ship mpv bin
 3. The plugin's CMake will automatically copy it to your build output folder
 
 #### macOS
-1. Install via Homebrew: `brew install mpv`
-2. Or download from [mpv.io](https://mpv.io)
-3. Place `libmpv.2.dylib` in: `packages/mpv_native_texture/macos/Libs/libmpv.2.dylib`
+1. **Option A: Homebrew (Recommended)**
+   ```bash
+   brew install mpv
+   ```
+2. **Option B: Manual Download**
+   - Download `libmpv.2.dylib` and **all its dependencies** from a reliable source.
+   - Place **all required `.dylib` files** (approximately 70+ files) in: `packages/mpv_native_texture/macos/Libs/`
+   - The plugin's `podspec` will automatically include all dylibs in this folder.
 
 ### 🔧 Installation
 
@@ -138,7 +143,8 @@ The demo app includes:
 
 **"Library not loaded: libmpv.2.dylib"**
 - Install mpv via Homebrew: `brew install mpv`
-- Or place `libmpv.2.dylib` in `packages/mpv_native_texture/macos/Libs/`
+- Or place `libmpv.2.dylib` and all required dependencies in `packages/mpv_native_texture/macos/Libs/`
+- Ensure the plugin's `podspec` can find the libraries.
 - Verify library architecture matches your Mac (Intel/Apple Silicon)
 
 ## 🔧 Building from Source

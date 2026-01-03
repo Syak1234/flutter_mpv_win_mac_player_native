@@ -13,6 +13,7 @@
 - Created `packages/mpv_native_texture/lib/mpv_native_texture.dart` with unified API
 - Updated `lib/main.dart` to use `MpvNativeTextureController` and `MpvNativeTextureView`
 - mpv-2.dll is already present in `packages/mpv_native_texture/windows/third_party/mpv/bin/`
+- All required macOS dylibs (71 files) are present in `packages/mpv_native_texture/macos/Libs/`
 
 ### Next Steps:
 1. [x] Run `flutter clean`

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -245,7 +246,8 @@
             color: var(--primary);
         }
 
-        ul, ol {
+        ul,
+        ol {
             margin-left: 1.5rem;
             margin-bottom: 1rem;
         }
@@ -313,6 +315,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -343,11 +346,13 @@
         <div class="card" id="overview">
             <h2><span class="icon">📖</span>Project Overview</h2>
             <p>
-                This is a Flutter demonstration application that integrates <strong>libmpv</strong> (the powerful media player library) 
-                with Flutter's native texture rendering system. It provides a unified, cross-platform API that works seamlessly on both 
+                This is a Flutter demonstration application that integrates <strong>libmpv</strong> (the powerful media
+                player library)
+                with Flutter's native texture rendering system. It provides a unified, cross-platform API that works
+                seamlessly on both
                 Windows and macOS.
             </p>
-            
+
             <div class="feature-grid">
                 <div class="feature-card">
                     <h4>🎯 Unified API</h4>
@@ -371,7 +376,7 @@
         <!-- Prerequisites -->
         <div class="card" id="prerequisites">
             <h2><span class="icon">✅</span>Prerequisites</h2>
-            
+
             <h3>Development Environment</h3>
             <ul>
                 <li><strong>Flutter SDK:</strong> Version 3.35.0 or later</li>
@@ -379,7 +384,7 @@
             </ul>
 
             <h3>Platform-Specific Requirements</h3>
-            
+
             <div class="alert alert-info">
                 <div class="alert-title">ℹ️ Windows Requirements</div>
                 <ul>
@@ -408,31 +413,34 @@
         <!-- Windows Setup -->
         <div class="card" id="windows-setup">
             <h2><span class="icon">🪟</span>Windows Setup</h2>
-            
+
             <div class="platform-section">
                 <h3><span class="step-number">1</span>Download MPV Library</h3>
                 <p>You need to obtain <span class="inline-code">mpv-2.dll</span> from one of these sources:</p>
-                
-                <a href="https://mpv.io/installation/" class="download-button" target="_blank">📥 Official MPV Website</a>
-                <a href="https://sourceforge.net/projects/mpv-player-windows/files/" class="download-button" target="_blank">📥 Shinchiro's Builds</a>
-                
+
+                <a href="https://mpv.io/installation/" class="download-button" target="_blank">📥 Official MPV
+                    Website</a>
+                <a href="https://sourceforge.net/projects/mpv-player-windows/files/" class="download-button"
+                    target="_blank">📥 Shinchiro's Builds</a>
+
                 <div class="alert alert-warning">
                     <div class="alert-title">⚠️ Important</div>
-                    Download the <strong>x64 (64-bit)</strong> version. The DLL must match your application architecture.
+                    Download the <strong>x64 (64-bit)</strong> version. The DLL must match your application
+                    architecture.
                 </div>
             </div>
 
             <div class="platform-section">
                 <h3><span class="step-number">2</span>Place the DLL</h3>
                 <p>Copy <span class="inline-code">mpv-2.dll</span> to the following location in your project:</p>
-                
+
                 <div class="code-block">
                     <code>packages/mpv_native_texture/windows/third_party/mpv/bin/mpv-2.dll</code>
                 </div>
 
                 <div class="alert alert-info">
                     <div class="alert-title">💡 Automatic Deployment</div>
-                    The plugin's CMake configuration will automatically copy <span class="inline-code">mpv-2.dll</span> 
+                    The plugin's CMake configuration will automatically copy <span class="inline-code">mpv-2.dll</span>
                     to your build output folder during compilation.
                 </div>
             </div>
@@ -446,7 +454,7 @@
 
             <div class="platform-section">
                 <h3><span class="step-number">4</span>Build the Application</h3>
-                
+
                 <p><strong>For Debug Mode:</strong></p>
                 <div class="code-block">
                     <code>flutter build windows --debug</code>
@@ -461,8 +469,10 @@
                     <div class="alert-title">✅ Build Output Location</div>
                     <p>After building, <span class="inline-code">mpv-2.dll</span> will be located at:</p>
                     <ul>
-                        <li><strong>Debug:</strong> <span class="inline-code">build/windows/runner/Debug/mpv-2.dll</span></li>
-                        <li><strong>Release:</strong> <span class="inline-code">build/windows/runner/Release/mpv-2.dll</span></li>
+                        <li><strong>Debug:</strong> <span
+                                class="inline-code">build/windows/runner/Debug/mpv-2.dll</span></li>
+                        <li><strong>Release:</strong> <span
+                                class="inline-code">build/windows/runner/Release/mpv-2.dll</span></li>
                     </ul>
                 </div>
             </div>
@@ -478,7 +488,7 @@
         <!-- macOS Setup -->
         <div class="card" id="macos-setup">
             <h2><span class="icon">🍎</span>macOS Setup</h2>
-            
+
             <div class="platform-section">
                 <h3><span class="step-number">1</span>Install MPV Library</h3>
                 <p><strong>Option A: Install via Homebrew (Recommended)</strong></p>
@@ -488,22 +498,33 @@
 
                 <p><strong>Option B: Manual Download</strong></p>
                 <ul>
-                    <li>Download from <a href="https://mpv.io" target="_blank" style="color: var(--secondary)">mpv.io</a></li>
+                    <li>Download from <a href="https://mpv.io" target="_blank"
+                            style="color: var(--secondary)">mpv.io</a></li>
                     <li>Extract <span class="inline-code">libmpv.2.dylib</span> from the package</li>
                 </ul>
             </div>
 
             <div class="platform-section">
-                <h3><span class="step-number">2</span>Place the Library</h3>
-                <p>If using manual download, copy <span class="inline-code">libmpv.2.dylib</span> to:</p>
-                
+                <h3><span class="step-number">2</span>Place the Libraries</h3>
+                <p>If using manual download, you must copy <strong>libmpv.2.dylib</strong> AND <strong>all its required
+                        dependencies</strong> (FFmpeg, etc.) to the following directory. There are typically over 70
+                    required files for a full mpv installation.</p>
+
                 <div class="code-block">
-                    <code>packages/mpv_native_texture/macos/Libs/libmpv.2.dylib</code>
+                    <code>packages/mpv_native_texture/macos/Libs/</code>
                 </div>
 
                 <div class="alert alert-info">
-                    <div class="alert-title">💡 Tip</div>
-                    If you installed via Homebrew, the library is system-wide and will be found automatically.
+                    <div class="alert-title">💡 Homebrew Automated Setup</div>
+                    If you installed via Homebrew (<span class="inline-code">brew install mpv</span>), the build system
+                    automatically links to the system libraries. You do <strong>not</strong> need to copy files to the
+                    Libs folder in this case.
+                </div>
+
+                <div class="alert alert-warning">
+                    <div class="alert-title">⚠️ All Dependencies Required</div>
+                    Missing even one dependency will result in a "Library not loaded" error. Ensure the <span
+                        class="inline-code">Libs/</span> folder contains the complete set of dylibs.
                 </div>
             </div>
 
@@ -516,7 +537,7 @@
 
             <div class="platform-section">
                 <h3><span class="step-number">4</span>Build the Application</h3>
-                
+
                 <p><strong>For Debug Mode:</strong></p>
                 <div class="code-block">
                     <code>flutter build macos --debug</code>
@@ -539,16 +560,17 @@
         <!-- Running the Demo -->
         <div class="card" id="running">
             <h2><span class="icon">▶️</span>Running the Demo</h2>
-            
+
             <h3>Quick Start Commands</h3>
-            
+
             <div class="code-block">
                 <code># Clean previous builds (recommended)<br>flutter clean<br><br># Get dependencies<br>flutter pub get<br><br># Run on Windows<br>flutter run -d windows<br><br># Run on macOS<br>flutter run -d macos</code>
             </div>
 
             <h3>Using the Application</h3>
             <ol>
-                <li><strong>Open a Local File:</strong> Click the "Open File" button and select a video file (MP4, MKV, MOV, WebM, AVI)</li>
+                <li><strong>Open a Local File:</strong> Click the "Open File" button and select a video file (MP4, MKV,
+                    MOV, WebM, AVI)</li>
                 <li><strong>Open a URL:</strong> Enter a video URL in the text field and click "Open URL"</li>
                 <li><strong>Playback Controls:</strong>
                     <ul>
@@ -570,7 +592,7 @@
         <!-- API Usage -->
         <div class="card" id="usage">
             <h2><span class="icon">💻</span>API Usage</h2>
-            
+
             <h3>Import the Package</h3>
             <div class="code-block">
                 <code>import 'package:mpv_native_texture/mpv_native_texture.dart';</code>
@@ -595,18 +617,21 @@
         <!-- Troubleshooting -->
         <div class="card" id="troubleshooting">
             <h2><span class="icon">🔧</span>Troubleshooting</h2>
-            
+
             <h3>Windows Issues</h3>
-            
+
             <div class="alert alert-warning">
                 <div class="alert-title">❌ Error: "Failed to initialize mpv player"</div>
-                <p><strong>Cause:</strong> <span class="inline-code">mpv-2.dll</span> is missing or not in the correct location.</p>
+                <p><strong>Cause:</strong> <span class="inline-code">mpv-2.dll</span> is missing or not in the correct
+                    location.</p>
                 <p><strong>Solutions:</strong></p>
                 <ul>
-                    <li>Verify <span class="inline-code">mpv-2.dll</span> exists in <span class="inline-code">packages/mpv_native_texture/windows/third_party/mpv/bin/</span></li>
+                    <li>Verify <span class="inline-code">mpv-2.dll</span> exists in <span
+                            class="inline-code">packages/mpv_native_texture/windows/third_party/mpv/bin/</span></li>
                     <li>Run <span class="inline-code">flutter clean</span> and rebuild</li>
                     <li>Check that the DLL is the correct architecture (x64)</li>
-                    <li>Manually copy <span class="inline-code">mpv-2.dll</span> next to <span class="inline-code">Runner.exe</span> in your build folder</li>
+                    <li>Manually copy <span class="inline-code">mpv-2.dll</span> next to <span
+                            class="inline-code">Runner.exe</span> in your build folder</li>
                 </ul>
             </div>
 
@@ -617,25 +642,27 @@
                 <ul>
                     <li>Install Visual C++ Redistributables</li>
                     <li>Ensure all DLL dependencies are present</li>
-                    <li>Use a tool like <a href="https://github.com/lucasg/Dependencies" target="_blank" style="color: var(--secondary)">Dependencies</a> to check missing DLLs</li>
+                    <li>Use a tool like <a href="https://github.com/lucasg/Dependencies" target="_blank"
+                            style="color: var(--secondary)">Dependencies</a> to check missing DLLs</li>
                 </ul>
             </div>
 
             <h3>macOS Issues</h3>
-            
+
             <div class="alert alert-warning">
                 <div class="alert-title">❌ Error: "Library not loaded: libmpv.2.dylib"</div>
                 <p><strong>Cause:</strong> libmpv library not found</p>
                 <p><strong>Solutions:</strong></p>
                 <ul>
                     <li>Install via Homebrew: <span class="inline-code">brew install mpv</span></li>
-                    <li>Place <span class="inline-code">libmpv.2.dylib</span> in <span class="inline-code">packages/mpv_native_texture/macos/Libs/</span></li>
+                    <li>Place <span class="inline-code">libmpv.2.dylib</span> in <span
+                            class="inline-code">packages/mpv_native_texture/macos/Libs/</span></li>
                     <li>Verify the library architecture matches your Mac (Intel x86_64 or Apple Silicon arm64)</li>
                 </ul>
             </div>
 
             <h3>General Issues</h3>
-            
+
             <div class="alert alert-info">
                 <div class="alert-title">🎬 Video not playing</div>
                 <ul>
@@ -696,4 +723,5 @@
         });
     </script>
 </body>
+
 </html>
